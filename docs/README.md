@@ -1,6 +1,6 @@
 # Follow the money
 
-How can every cent of your donation is spent and be sure that it's really working for the cause!
+How can every cent of your donation is spent and be sure that it's really working for the cause?
 
 Not a lot of people give money to charity because it's unclear for them how will their money be spent. People are not greedy, they just don't want to be bamboozled!
 
