@@ -1,3 +1,3 @@
-#Follow the money
+# Follow the money
 
 A transparent crowdfunding platform
