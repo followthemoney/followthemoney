@@ -163,7 +163,7 @@ export class LandingPage extends LitElement {
       }
 
       section {
-        padding: 80px 173px 25px 173px;
+        padding: 30px 173px 25px 173px;
       }
 
       .lists-featured {
@@ -231,7 +231,7 @@ export class LandingPage extends LitElement {
         padding-right: 30px;
       }
 
-      .reports {
+      .link-group {
         color: var(--f3-color);
         display: flex;
         flex-direction: row;
@@ -299,6 +299,18 @@ export class LandingPage extends LitElement {
         --background-color: var(--a1-color);
         --mv-button-light-background: var(--a1-color);
         --mv-button-hover-light-background: var(--a1-color);
+      }
+
+      .top-fundraisers {
+        padding-top: 80px;
+      }
+
+      .see-more {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-top: 50px;
+        font-size: var(--font-size-l);
+        font-weight: bold;
       }
     `;
   }
@@ -385,7 +397,7 @@ export class LandingPage extends LitElement {
                       </div>
                       <div class="reports-link">
                         <a href="">
-                          <div class="reports">
+                          <div class="link-group">
                             <div>Reports</div>
                             <i class="next">&#x203A;</i>
                           </div>
@@ -440,6 +452,14 @@ export class LandingPage extends LitElement {
                     <detailed-cards
                       .list="${this.topFundraisers}"
                     ></detailed-cards>
+                    <div class="see-more">
+                      <a href="">
+                        <div class="link-group">
+                          <div>See more</div>
+                          <i class="next">&#x203A;</i>
+                        </div>
+                      </a>
+                    </div>
                   </section>
                 `
               : html``}
@@ -450,6 +470,14 @@ export class LandingPage extends LitElement {
                     <detailed-cards
                       .list="${this.latestReports}"
                     ></detailed-cards>
+                    <div class="see-more">
+                      <a href="">
+                        <div class="link-group">
+                          <div>See more</div>
+                          <i class="next">&#x203A;</i>
+                        </div>
+                      </a>
+                    </div>
                   </section>
                 `
               : html``}
