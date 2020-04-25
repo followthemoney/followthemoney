@@ -28,6 +28,7 @@ export class DetailedCards extends LitElement {
       }
 
       .detailed-card {
+        color: var(--f1-color);
       }
 
       .image {
@@ -42,8 +43,42 @@ export class DetailedCards extends LitElement {
 
       .image .default {
         width: 130px;
-        height: 130px;
-        margin: 0 auto;
+        height: 140px;
+        margin-top: 52px;
+        margin-left: 108px;
+      }
+
+      .location-category {
+        color: var(--a1-color);
+        margin: 11px 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .name {
+        font-size: var(--font-size-l);
+        font-weight: bold;
+        margin: 0 20px;
+      }
+
+      .description {
+        min-height: 85px;
+        max-height: 85px;
+        overflow-y: hidden;
+        margin: 12px 20px 0 20px;
+      }
+
+      .raised,
+      .count,
+      .date,
+      .accounted {
+        font-weight: bold;
+        margin: 0 20px;
+      }
+
+      .accounted {
+        color: var(--a1-color);
       }
     `;
   }
@@ -62,7 +97,7 @@ export class DetailedCards extends LitElement {
             location,
             category,
             project: { name, description },
-            report: { raised, count, accounted, date },
+            report: { currency, raised, count, accounted, date },
           }) => html`
             <mv-container>
               <div class="detailed-card">
@@ -70,9 +105,29 @@ export class DetailedCards extends LitElement {
                   ${image
                     ? html` <img class="provided" src="${image}" /> `
                     : html`
-                        <img class="default" src="./images/logo-bt.png" />
+                        <img class="default" src="./images/logo-btp.png" />
                       `}
                 </div>
+                <div class="location-category">
+                  <div class="location">${location}</div>
+                  <div class="category">${category}</div>
+                </div>
+                <div class="name">${name}</div>
+                <div class="description">${description}</div>
+                ${raised
+                  ? html`<div class="raised">
+                      ${currency || html`&#x20b1;`} ${raised} raised
+                    </div>`
+                  : html``}
+                ${count
+                  ? html`<div class="count">${count} reports</div>`
+                  : html``}
+                ${accounted
+                  ? html`<div class="accounted">
+                      ${currency || html`&#x20b1;`} ${accounted} accounted for
+                    </div>`
+                  : html``}
+                ${date ? html`<div class="date">${date}</div>` : html``}
               </div>
             </mv-container>
           `
