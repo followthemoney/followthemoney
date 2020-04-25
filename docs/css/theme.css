@@ -1,0 +1,85 @@
+/* normalization styles */
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  content: "";
+  display: block;
+  position: absolute;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Theme styles */
+html {
+  /* Background colors */
+  --b1-color: #e5e5e5;
+  --b2-color: #ffffff;
+  --b3-color: #f4f4f4;
+  --b4-color: #323232;
+
+  /* Font colors*/
+  --f1-color: #323232;
+  --f2-color: #ffffff;
+  --f3-color: #8e8e8e;
+
+  /* Accent colors */
+  --a1-color: #27b5e1;
+  --a2-color: #ea7f32;
+  --a3-color: #90b576;
+  --a4-color: #c13c3c;
+
+  /* Semantic */
+  --success-color: var(--a3-color);
+  --warning-color: var(--a2-color);
+  --info-color: var(--a1-color);
+  --error-color: var(--a4-color);
+  --on-success-color: rgb(28, 29, 28);
+  --on-warning-color: rgb(53, 48, 46);
+  --on-info-color: rgb(53, 48, 46);
+  --on-error-color: rgb(248, 240, 239);
+
+  /* Neutral Colors (for borders, shadows, etc) */
+  --n1-color: #8e8e8e;
+  --n2-color: rgba(0, 0, 0, 0.25);
+  --n3-color: #f4f4f4;
+  --n4-color: rgba(0, 0, 0, 0.45);
+
+  /* Typography */
+
+  /* Font families */
+  --comfortaa: "Comfortaa", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif;
+  --raleway: "Raleway", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-family: var(--raleway);
+
+  /* Font sizes */
+  --font-size-xxs: 0.25rem;
+  --font-size-xs: 0.5rem;
+  --font-size-s: 0.75rem;
+  --font-size-m: 1rem;
+  --font-size-l: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-xxl: 1.875rem;
+  --font-size-xxxl: 2.5rem;
+
+  /* Line heights */
+  --line-height-xs: 1.25;
+  --line-height-s: 1.375;
+  --line-height-m: 1.625;
+
+  /* Borders */
+  --border-shadow1: 0px 4px 4px var(--n2-color);
+  --border-shadow2: 2px 4px 4px var(--n2-color);
+}
