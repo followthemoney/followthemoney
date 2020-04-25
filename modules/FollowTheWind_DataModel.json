@@ -13,6 +13,7 @@
       "name" : "Account",
       "description" : "User account",
       "actions" : [ ],
+      "customEntityCategoryCode" : "ACCOUNTS",
       "availableStorages" : [ "SQL" ],
       "sqlStorageConfiguration" : {
         "storeAsTable" : true
@@ -132,6 +133,7 @@
       "name" : "Contractor",
       "description" : "Contractor or Employee",
       "actions" : [ ],
+      "customEntityCategoryCode" : "ACCOUNTS",
       "availableStorages" : [ "SQL" ],
       "sqlStorageConfiguration" : {
         "storeAsTable" : true
@@ -172,6 +174,7 @@
       "name" : "Donation",
       "description" : "Donation",
       "actions" : [ ],
+      "customEntityCategoryCode" : "TRANSACTIONS",
       "availableStorages" : [ "SQL" ],
       "sqlStorageConfiguration" : {
         "storeAsTable" : true
@@ -291,6 +294,7 @@
       "name" : "Payment",
       "description" : "Payment of expense",
       "actions" : [ ],
+      "customEntityCategoryCode" : "TRANSACTIONS",
       "availableStorages" : [ "SQL" ],
       "sqlStorageConfiguration" : {
         "storeAsTable" : true
@@ -494,6 +498,7 @@
       "name" : "Report",
       "description" : "Expense report",
       "actions" : [ ],
+      "customEntityCategoryCode" : "REPORTS",
       "availableStorages" : [ "SQL" ],
       "sqlStorageConfiguration" : {
         "storeAsTable" : true
@@ -590,6 +595,7 @@
       "name" : "Report entry",
       "description" : "Report entry",
       "actions" : [ ],
+      "customEntityCategoryCode" : "REPORTS",
       "availableStorages" : [ "SQL" ],
       "sqlStorageConfiguration" : {
         "storeAsTable" : true
@@ -682,6 +688,7 @@
       "name" : "Fundraiser",
       "description" : "Fundraiser organization",
       "actions" : [ ],
+      "customEntityCategoryCode" : "ACCOUNTS",
       "availableStorages" : [ "SQL" ],
       "sqlStorageConfiguration" : {
         "storeAsTable" : true
@@ -714,6 +721,24 @@
         "unique" : false,
         "matrixColumns" : [ ]
       } ]
+    }
+  }, {
+    "dtoClassName" : "org.meveo.api.dto.CustomEntityCategoryDto",
+    "dtoData" : {
+      "code" : "ACCOUNTS",
+      "name" : "Accounts"
+    }
+  }, {
+    "dtoClassName" : "org.meveo.api.dto.CustomEntityCategoryDto",
+    "dtoData" : {
+      "code" : "REPORTS",
+      "name" : "Reports"
+    }
+  }, {
+    "dtoClassName" : "org.meveo.api.dto.CustomEntityCategoryDto",
+    "dtoData" : {
+      "code" : "TRANSACTIONS",
+      "name" : "Transactions"
     }
   } ]
 } ]
