@@ -54,10 +54,6 @@ export class LandingPage extends LitElement {
         --mv-container-light-color: var(--f1-color);
       }
 
-      mv-button {
-        --font-family: var(--font-family);
-      }
-
       .billboard {
         padding: 0;
         margin: 0;
@@ -118,7 +114,12 @@ export class LandingPage extends LitElement {
         padding: 0 25px;
       }
 
+      .top-menu a {
+        color: var(--f2-color);
+      }
+
       .top-menu mv-button {
+        --font-size-m: var(--font-size-l);
         --background-color: var(--f2-color);
         --mv-button-light-background: var(--f2-color);
         --mv-button-hover-light-background: var(--a1-color);
@@ -296,6 +297,7 @@ export class LandingPage extends LitElement {
       }
 
       .custom-amount mv-button {
+        --font-size-m: var(--font-size-l);
         --background-color: var(--a1-color);
         --mv-button-light-background: var(--a1-color);
         --mv-button-hover-light-background: var(--a1-color);
@@ -336,13 +338,19 @@ export class LandingPage extends LitElement {
               </h1>
               <nav class="top-menu">
                 <ul>
-                  <li>Search</li>
-                  <li>Discover</li>
-                  <li>Fundraiser for</li>
-                  <li>How it works</li>
+                  <li><a href="">Search</a></li>
+                  <li><a href="">Discover</a></li>
+                  <li><a href="">Fundraiser for</a></li>
+                  <li><a href="">How it works</a></li>
                 </ul>
                 <ul>
-                  <li>Sign-up</li>
+                  <li>
+                    <a
+                      href="https://access.followthemoney.site/meveo/rest/webapp/followthemoney"
+                    >
+                      Sign-in
+                    </a>
+                  </li>
                   <li>
                     <mv-button type="outline" button-style="success">
                       Start a fundraiser
@@ -434,6 +442,7 @@ export class LandingPage extends LitElement {
                     </div>
                     <div class="custom-amount">
                       <mv-spinner
+                        placeholder="Other amount..."
                         .value="${this.donation || ""}"
                         min="0"
                         step="50"
