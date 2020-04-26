@@ -1,0 +1,757 @@
+{
+	"info": {
+		"_postman_id": "2e475e28-1a85-498a-9caa-e1c27fa2cd29",
+		"name": "Follow the money",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "10e875d7-553b-4126-8fa7-26ca45b2d92e",
+								"exec": [
+									"pm.test(\"response is ok\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.environment.get(\"variable_key\");",
+									"var json = pm.response.json();",
+									"var token = json[\"access_token\"];",
+									"var refreshToken = json[\"refresh_token\"]",
+									"pm.environment.set(\"access_token\", token);",
+									"pm.environment.set(\"refresh_token\", refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "meveo-web",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "meveo.admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "meveo",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "afe07e5a-68cb-4fb0-8b75-5b6053b07dc3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/auth/realms/{{webContext}}/protocol/openid-connect/token",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"auth",
+								"realms",
+								"{{webContext}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						},
+						"description": "Request Keycloak and get auth token"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "711a2a84-f949-49fc-b8e7-c13031726fad",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3579cefa-f66a-41ed-b3da-da73405f2b17",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "accounts",
+			"item": [
+				{
+					"name": "Insert Fundraisers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \t\"name\": \"FR1\",\n    \t\"type\": \"FUNDRAISER\",\n        \"uuid\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86fs\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"Animal Shelter in Manila\"\n    \t}\n    }\n]"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/{{webContext}}/api/rest/{{repoId}}/persistence",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{webContext}}",
+								"api",
+								"rest",
+								"{{repoId}}",
+								"persistence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve fundraisers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e1355ed6-f68a-48a6-b629-db97a6509152",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"neojValue and sqlValue has been returned\", function () {",
+									"    pm.expect(jsonData[0].sqlValue).to.eql(\"MySqlValue\");",
+									"});",
+									"",
+									"var uuid = jsonData[0].uuid || jsonData[0].meveo_uuid;",
+									"pm.globals.set(\"NeoSqlCetId\", uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\t\"filters\" : {\r\t}\r} "
+						},
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/{{webContext}}/api/rest/{{repoId}}/persistence/FUNDRAISER/list",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{webContext}}",
+								"api",
+								"rest",
+								"{{repoId}}",
+								"persistence",
+								"FUNDRAISER",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Contractors",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \t\"name\": \"C1\",\n    \t\"type\": \"CONTRACTOR\",\n    \t\"uuid\": \"830f2638-c297-4550-b713-da5e620b7089\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"CompanyA\"\n    \t}\n    },\n    {\n    \t\"name\": \"C2\",\n    \t\"type\": \"CONTRACTOR\",\n    \t\"uuid\": \"97e336f2-c014-4c67-855b-ae6da1ab4604\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"CompanyB\"\n    \t}\n    },\n    {\n    \t\"name\": \"C3\",\n    \t\"type\": \"CONTRACTOR\",\n    \t\"uuid\": \"59ffd150-2a6e-4dca-a2fe-043832f705d8\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"CompanyC\"\n    \t}\n    },\n    {\n    \t\"name\": \"C4\",\n    \t\"type\": \"CONTRACTOR\",\n    \t\"uuid\": \"67edcb47-7838-446d-8b89-ebb465711f41\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"EmployeeA\"\n    \t}\n    }\n]"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/{{webContext}}/api/rest/{{repoId}}/persistence",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{webContext}}",
+								"api",
+								"rest",
+								"{{repoId}}",
+								"persistence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Contractors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5f9582f0-e80c-4efc-8c33-038c50299d03",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"neojValue and sqlValue has been returned\", function () {",
+									"    pm.expect(jsonData[0].sqlValue).to.eql(\"MySqlValue\");",
+									"});",
+									"",
+									"var uuid = jsonData[0].uuid || jsonData[0].meveo_uuid;",
+									"pm.globals.set(\"NeoSqlCetId\", uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\t\"filters\" : {\r\t}\r} "
+						},
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/{{webContext}}/api/rest/{{repoId}}/persistence/CONTRACTOR/list",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{webContext}}",
+								"api",
+								"rest",
+								"{{repoId}}",
+								"persistence",
+								"CONTRACTOR",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert accounts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \t\"name\": \"AC1\",\n    \t\"type\": \"ACCOUNT\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"Walter White\",\n    \t\t\"CREATION_DATE\": 1586383200000,\n    \t\t\"FUNDRAISER_ACCOUNT\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86f\"\n    \t}\n    },\n    {\n    \t\"name\": \"AC2\",\n    \t\"type\": \"ACCOUNT\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"Mary Saladar\",\n    \t\t\"CREATION_DATE\": 1586383200000\n    \t}\n    },\n    {\n    \t\"name\": \"AC3\",\n    \t\"type\": \"ACCOUNT\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"Jose M.\",\n    \t\t\"CREATION_DATE\": 1586383200000\n    \t}\n    },\n    {\n    \t\"name\": \"AC4\",\n    \t\"type\": \"ACCOUNT\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"EmployeeA\",\n    \t\t\"CREATION_DATE\": 1586901600000,\n    \t\t\"CONTRACTOR_ACCOUNT\":\"67edcb47-7838-446d-8b89-ebb465711f41\"\n    \t}\n    },\n    {\n    \t\"name\": \"AC5\",\n    \t\"type\": \"ACCOUNT\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"CompanyA\",\n    \t\t\"CREATION_DATE\": 1586988000000,\n    \t\t\"CONTRACTOR_ACCOUNT\":\"830f2638-c297-4550-b713-da5e620b7089\"\n    \t}\n    },\n    { \n    \t\"name\": \"AC6\",\n    \t\"type\": \"ACCOUNT\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"CompanyB\",\n    \t\t\"CREATION_DATE\": 1586988000000,\n    \t\t\"CONTRACTOR_ACCOUNT\":\"97e336f2-c014-4c67-855b-ae6da1ab4604\"\n    \t}\n    },\n    {\n    \t\"name\": \"AC7\",\n    \t\"type\": \"ACCOUNT\",\n    \t\"properties\": {\n    \t\t\"NAME\" : \"CompanyC\",\n    \t\t\"CREATION_DATE\": 1586815200000,\n    \t\t\"CONTRACTOR_ACCOUNT\":\"59ffd150-2a6e-4dca-a2fe-043832f705d8\"\n    \t}\n    }\n]"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/{{webContext}}/api/rest/{{repoId}}/persistence",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{webContext}}",
+								"api",
+								"rest",
+								"{{repoId}}",
+								"persistence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve accounts instances",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d107ff31-10fb-4d9c-90cc-90b24f78f432",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"neojValue and sqlValue has been returned\", function () {",
+									"    pm.expect(jsonData[0].sqlValue).to.eql(\"MySqlValue\");",
+									"});",
+									"",
+									"var uuid = jsonData[0].uuid || jsonData[0].meveo_uuid;",
+									"pm.globals.set(\"NeoSqlCetId\", uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\t\"filters\" : {\r\t}\r} "
+						},
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/{{webContext}}/api/rest/{{repoId}}/persistence/ACCOUNT/list",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{webContext}}",
+								"api",
+								"rest",
+								"{{repoId}}",
+								"persistence",
+								"ACCOUNT",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "donations",
+			"item": [
+				{
+					"name": "Insert donations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \t\"name\": \"D1\",\n    \t\"type\": \"DONATION\",\n    \t\"properties\": {\n    \t\t\"CODE\":\"d1\",\n    \t\t\"AMOUNT\" : 1000.0,\n    \t\t\"DATE\": 1586383200000,\n    \t\t\"DONOR\": \"4ffb8416-05f9-4f00-a4b5-0c36eed66928\",\n    \t\t\"RECIPIENT\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86f\",\n    \t\t\"COMMENT\": \"Keep up the good job!\"\n    \t}\n    }, \n    {\n    \t\"name\": \"D2\",\n    \t\"type\": \"DONATION\",\n    \t\"properties\": {\n    \t\t\"CODE\":\"d2\",\n    \t\t\"AMOUNT\" : 100.0,\n    \t\t\"DATE\": 1586383200000,\n    \t\t\"DONOR\": \"4ffb8416-05f9-4f00-a4b5-0c36eed66928\",\n    \t\t\"RECIPIENT\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86f\"\n    \t}\n    }, \n    {\n    \t\"name\": \"D3\",\n    \t\"type\": \"DONATION\",\n    \t\"properties\": {\n    \t\t\"CODE\":\"d3\",\n    \t\t\"AMOUNT\" : 150.0,\n    \t\t\"DATE\": 1586383200000,\n    \t\t\"DONOR\": \"096b90ac-0839-4003-9051-9f9315ebd273\",\n    \t\t\"RECIPIENT\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86f\",\n    \t\t\"COMMENT\": \"Godbless you!\"\n    \t}\n    }, \n    {\n    \t\"name\": \"D4\",\n    \t\"type\": \"DONATION\",\n    \t\"properties\": {\n    \t\t\"CODE\":\"d4\",\n    \t\t\"AMOUNT\" : 150.0,\n    \t\t\"DATE\": 1586283200000,\n    \t\t\"DONOR\": \"096b90ac-0839-4003-9051-9f9315ebd273\",\n    \t\t\"RECIPIENT\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86f\",\n    \t\t\"COMMENT\": \"\"\n    \t}\n    }, \n    {\n    \t\"name\": \"D5\",\n    \t\"type\": \"DONATION\",\n    \t\"properties\": {\n    \t\t\"CODE\":\"d5\",\n    \t\t\"AMOUNT\" : 150.0,\n    \t\t\"DATE\": 1586183200000,\n    \t\t\"DONOR\": \"096b90ac-0839-4003-9051-9f9315ebd273\",\n    \t\t\"RECIPIENT\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86f\",\n    \t\t\"COMMENT\": \"\"\n    \t}\n    }\n]"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/{{webContext}}/api/rest/{{repoId}}/persistence",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{webContext}}",
+								"api",
+								"rest",
+								"{{repoId}}",
+								"persistence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve donations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "519be118-95b4-4c7b-b74e-9795ed229b0c",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"neojValue and sqlValue has been returned\", function () {",
+									"    pm.expect(jsonData[0].sqlValue).to.eql(\"MySqlValue\");",
+									"});",
+									"",
+									"var uuid = jsonData[0].uuid || jsonData[0].meveo_uuid;",
+									"pm.globals.set(\"NeoSqlCetId\", uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\t\"filters\" : {\r\t}\r} "
+						},
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/{{webContext}}/api/rest/{{repoId}}/persistence/DONATION/list",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{webContext}}",
+								"api",
+								"rest",
+								"{{repoId}}",
+								"persistence",
+								"DONATION",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "payments",
+			"item": [
+				{
+					"name": "Insert payments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \t\"name\": \"D1\",\n    \t\"type\": \"DONATION\",\n    \t\"properties\": {\n    \t\t\"CODE\":\"d1\",\n    \t\t\"AMOUNT\" : 1000.0,\n    \t\t\"DATE\": 1586383200000,\n    \t\t\"DONOR\": \"4ffb8416-05f9-4f00-a4b5-0c36eed66928\",\n    \t\t\"RECIPIENT\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86f\",\n    \t\t\"COMMENT\": \"Keep up the good job!\"\n    \t}\n    }, \n    {\n    \t\"name\": \"D2\",\n    \t\"type\": \"DONATION\",\n    \t\"properties\": {\n    \t\t\"CODE\":\"d2\",\n    \t\t\"AMOUNT\" : 100.0,\n    \t\t\"DATE\": 1586383200000,\n    \t\t\"DONOR\": \"4ffb8416-05f9-4f00-a4b5-0c36eed66928\",\n    \t\t\"RECIPIENT\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86f\"\n    \t}\n    }, \n    {\n    \t\"name\": \"D3\",\n    \t\"type\": \"DONATION\",\n    \t\"properties\": {\n    \t\t\"CODE\":\"d3\",\n    \t\t\"AMOUNT\" : 150.0,\n    \t\t\"DATE\": 1586383200000,\n    \t\t\"DONOR\": \"096b90ac-0839-4003-9051-9f9315ebd273\",\n    \t\t\"RECIPIENT\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86f\",\n    \t\t\"COMMENT\": \"Godbless you!\"\n    \t}\n    }, \n    {\n    \t\"name\": \"D4\",\n    \t\"type\": \"DONATION\",\n    \t\"properties\": {\n    \t\t\"CODE\":\"d4\",\n    \t\t\"AMOUNT\" : 150.0,\n    \t\t\"DATE\": 1586283200000,\n    \t\t\"DONOR\": \"096b90ac-0839-4003-9051-9f9315ebd273\",\n    \t\t\"RECIPIENT\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86f\",\n    \t\t\"COMMENT\": \"\"\n    \t}\n    }, \n    {\n    \t\"name\": \"D5\",\n    \t\"type\": \"DONATION\",\n    \t\"properties\": {\n    \t\t\"CODE\":\"d5\",\n    \t\t\"AMOUNT\" : 150.0,\n    \t\t\"DATE\": 1586183200000,\n    \t\t\"DONOR\": \"096b90ac-0839-4003-9051-9f9315ebd273\",\n    \t\t\"RECIPIENT\": \"8105b2da-a0a8-4c04-9080-8de8f14ab86f\",\n    \t\t\"COMMENT\": \"\"\n    \t}\n    }\n]"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/{{webContext}}/api/rest/{{repoId}}/persistence",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{webContext}}",
+								"api",
+								"rest",
+								"{{repoId}}",
+								"persistence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve donations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "af9900ee-59af-4adf-9121-487d044bf729",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"neojValue and sqlValue has been returned\", function () {",
+									"    pm.expect(jsonData[0].sqlValue).to.eql(\"MySqlValue\");",
+									"});",
+									"",
+									"var uuid = jsonData[0].uuid || jsonData[0].meveo_uuid;",
+									"pm.globals.set(\"NeoSqlCetId\", uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\t\"filters\" : {\r\t}\r} "
+						},
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/{{webContext}}/api/rest/{{repoId}}/persistence/DONATION/list",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{webContext}}",
+								"api",
+								"rest",
+								"{{repoId}}",
+								"persistence",
+								"DONATION",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0da9c120-2425-4392-8679-55fa81d50f72",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7272ea9a-7d20-42e7-9150-acc6519b4668",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "get last donations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{hostname}}:{{port}}/{{webContext}}/api/rest/lastdonations?size=4",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{webContext}}",
+								"api",
+								"rest",
+								"lastdonations"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
