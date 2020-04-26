@@ -339,9 +339,9 @@ export class LandingPage extends LitElement {
               <nav class="top-menu">
                 <ul>
                   <li><a href="">Search</a></li>
-                  <li><a href="">Discover</a></li>
+                  <li><a href="https://github.com/followthemoney/followthemoney">Discover</a></li>
                   <li><a href="">Fundraiser for</a></li>
-                  <li><a href="">How it works</a></li>
+                  <li><a href="https://github.com/followthemoney/followthemoney">How it works</a></li>
                 </ul>
                 <ul>
                   <li>
@@ -494,7 +494,7 @@ export class LandingPage extends LitElement {
         </div>
 
         <mv-footer slot="footer">
-          <mv-footer item>FollowTheMoney 2020</mv-footer>
+          <mv-footer item>FollowTheMoney 2020, built with <a href="meveo.org">MEVEO</a></mv-footer>
         </mv-footer>
       </mv-main>
     `;
