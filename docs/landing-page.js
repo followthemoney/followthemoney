@@ -339,9 +339,9 @@ export class LandingPage extends LitElement {
               <nav class="top-menu">
                 <ul>
                   <li><a href="">Search</a></li>
-                  <li><a href="">Discover</a></li>
+                  <li><a href="https://github.com/followthemoney/followthemoney">Discover</a></li>
                   <li><a href="">Fundraiser for</a></li>
-                  <li><a href="">How it works</a></li>
+                  <li><a href="https://github.com/followthemoney/followthemoney">How it works</a></li>
                 </ul>
                 <ul>
                   <li>
