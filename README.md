@@ -1,17 +1,15 @@
 # Follow the money - A transparent crowdfunding platform
 
-See how every cent of your donation is spent and be sure that it's really working for the cause!
+This project has been implemented from friday April 24 to sunday April 26 during the [Philippine startup weekend](https://startupweekend.org)
 
-Not a lot of people give money to charity because it's unclear for them how will their money be spent. People are not greedy, they just don't want to be bamboozled!
+It is based on Meveo backend and frontend platform, that allowed use to build most of the MVP in 2 days.
 
-Our platform will let donors track where every cent is going and for NGO's and Charities help to raise funds for their cause.   A lot of people suffered from the pandemic, thus a lot more people need help more than ever. 
+you will find in this repo the meveo module for the datamodel and API, the source code of the website, postman collection to use the API
 
-People who can afford to help will be happy to help, if they know that their donations will be used the right way!
-that's the short description that was submitted for SW. I'll send more info later today
 
 ## URLs
 
+ - Demo Website - https://followthemoney.site/  
  - Activity Log - https://docs.google.com/document/d/1FRqc_28fRj6KJZ8tyfnXD1vqzlJ06V2V_vdZewVtSwE
  - Data Model - https://app.diagrams.net/#G1PMFm_zKrP-RjkmvMWlANryKFYgcj7KXG
- - Repository - https://github.com/followthemoney
- - Demo Website - https://access.followthemoney.site/
+ - Architecture - https://drive.google.com/drive/u/3/folders/12-Xf7DMoqLQVBPbLje-n7d-SfLBfFPMx
