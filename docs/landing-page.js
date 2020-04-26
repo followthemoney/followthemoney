@@ -494,7 +494,7 @@ export class LandingPage extends LitElement {
         </div>
 
         <mv-footer slot="footer">
-          <mv-footer item>FollowTheMoney 2020</mv-footer>
+          <mv-footer item>FollowTheMoney 2020, built with <a href="meveo.org">MEVEO</a></mv-footer>
         </mv-footer>
       </mv-main>
     `;
