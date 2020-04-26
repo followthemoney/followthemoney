@@ -52,12 +52,12 @@
 								},
 								{
 									"key": "username",
-									"value": "meveo.admin",
+									"value": "{{keycloakUsername}}",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "meveo",
+									"value": "{{keycloakPassword}}",
 									"type": "text"
 								},
 								{
